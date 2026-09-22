@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Доли и дроби — интерактивный тренажёр</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f5f8;color:#202124}
+.app{max-width:900px;margin:0 auto;padding:24px}
+header{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+h1{margin:0;font-size:28px}
+.sub{color:#68707d;margin-top:6px}
+.score{background:white;border:1px solid #ddd;border-radius:12px;padding:10px 14px;font-weight:bold}
+.card{background:white;border-radius:20px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.badge{display:inline-block;background:#eeeefe;padding:6px 10px;border-radius:999px;font-size:13px;margin-bottom:10px}
+h2{margin:4px 0 8px;font-size:23px}
+.question{font-size:18px;line-height:1.5;margin:0 0 18px}
+.visual{background:#f8f8fa;border:1px solid #e4e5e9;border-radius:16px;padding:22px;text-align:center;margin-bottom:18px}
+.pizza{width:min(310px,75vw);height:min(310px,75vw);max-width:310px;max-height:310px;margin:0 auto;position:relative;border-radius:50%;overflow:hidden;border:4px solid #333;background:#f2d27a;cursor:pointer}
+.slice{position:absolute;inset:0;transform:rotate(var(--angle));clip-path:polygon(50% 50%,100% 0,100% 100%);background:#f2d27a;border-right:2px solid #777;transition:.15s}
+.slice:hover{filter:brightness(.96)}
+.slice.selected{background:#6b64d9}
+.slice .dot{position:absolute;left:72%;top:45%;width:13px;height:13px;border-radius:50%;background:#d65b52}
+.slice:nth-child(2n) .dot{left:76%;top:58%}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:25px;height:25px;background:#e4bd64;border-radius:50%;z-index:3;border:2px solid #333}
+.hint{font-size:14px;color:#69717d;margin-top:10px}
+.fraction-display{font-size:34px;font-weight:bold;margin-top:10px}
+.line{display:flex;width:min(520px,100%);height:64px;margin:0 auto;border:2px solid #333;border-radius:10px;overflow:hidden}
+.part{flex:1;border-right:1px solid #888;background:#eee;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:.15s}
+.part:last-child{border-right:0}
+.part:hover{background:#ddd}
+.part.selected{background:#6b64d9;color:white}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.answer,.next,.restart{font:inherit;border-radius:12px;padding:13px 16px;cursor:pointer}
+.answer{background:white;border:1px solid #ddd;font-weight:bold}
+.answer:hover{border-color:#6b64d9}
+.answer.correct{background:#e7f7ec;border-color:#4ba66b}
+.answer.wrong{background:#fff0f0;border-color:#d65b5b}
+.answer:disabled{cursor:default}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.next{display:none;background:#5b56c9;color:white;border:0;font-weight:bold}
+.next.show{display:block}
+.restart{background:white;border:1px solid #ddd}
+.feedback{min-height:28px;font-weight:bold;margin-top:13px;line-height:1.4}
+.progress{height:8px;background:#e8e8ed;border-radius:99px;overflow:hidden;margin:15px 0 20px}
+.progress span{display:block;height:100%;background:#6b64d9;width:0%;transition:.25s}
+@media(max-width:600px){.app{padding:14px}.card{padding:17px}h1{font-size:23px}.answers{grid-template-columns:1fr}.question{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div><h1>Доли и дроби</h1><div class="sub">6 класс · практическое применение</div></div>
+  <div class="score" id="score">Счёт: 0 / 0</div>
+</header>
+
+<div class="progress"><span id="progress"></span></div>
+
+<main class="card">
+  <div class="badge" id="type"></div>
+  <h2 id="title"></h2>
+  <p class="question" id="question"></p>
+  <div class="visual" id="visual"></div>
+  <div class="answers" id="answers"></div>
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+  <div class="actions">
+    <button class="next" id="next">Следующее задание →</button>
+    <button class="restart" id="restart">Начать заново</button>
+  </div>
+</main>
+</div>
+
+<script>
+const tasks=[
+ {title:"Пицца на компанию",type:"Доля целого",
+  q:"Пиццу разделили на 8 равных кусочков. Нажимай на кусочки, которые съела Маша: нужно выбрать 3 кусочка.",
+  d:8,n:3,opts:["3/8","5/8","3/5","8/3"],kind:"pizza"},
+ {title:"Шоколадка",type:"Доля целого",
+  q:"Шоколадку разделили на 12 одинаковых долек. Нажимай на дольки, которые остались: нужно выбрать 5 долек.",
+  d:12,n:5,opts:["5/12","7/12","5/7","12/5"],kind:"line"},
+ {title:"Лимонад",type:"Дробь от числа",
+  q:"В бутылке 1,5 л лимонада. Выпили 1/3 всего напитка. Сколько литров выпили?",
+  opts:["0,5 л","0,3 л","1 л","0,75 л"],correct:"0,5 л",explain:"1,5 ÷ 3 = 0,5 л.",kind:"emoji",emoji:"🥤"},
+ {title:"Карманные деньги",type:"Дробь от числа",
+  q:"У Саши было 600 ₽. Он потратил 1/4 суммы. Сколько рублей он потратил?",
+  opts:["100 ₽","150 ₽","200 ₽","250 ₽"],correct:"150 ₽",explain:"600 ÷ 4 = 150 ₽.",kind:"emoji",emoji:"💰"},
+ {title:"Книга",type:"Дробь от числа",
+  q:"В книге 240 страниц. За выходные прочитали 3/8 книги. Сколько страниц прочитали?",
+  opts:["60","80","90","120"],correct:"90",explain:"240 ÷ 8 × 3 = 90 страниц.",kind:"emoji",emoji:"📖"},
+ {title:"Спортивная дистанция",type:"Дробь от числа",
+  q:"Бегун должен преодолеть 6 км. Он уже прошёл 2/3 дистанции. Сколько километров осталось?",
+  opts:["2 км","3 км","4 км","5 км"],correct:"2 км",explain:"6 × 2/3 = 4 км прошёл; 6 − 4 = 2 км осталось.",kind:"emoji",emoji:"🏃"},
+ {title:"Торт",type:"Сравнение дробей",
+  q:"Торт разделили на 8 частей. Съели 3 части. Какая доля торта больше: съеденная или 1/2 торта?",
+  opts:["3/8","1/2","Они равны","Нельзя определить"],correct:"1/2",explain:"1/2 = 4/8, а 4/8 > 3/8.",kind:"line",d:8,n:3}
+];
+
+let index=0,correct=0,answered=0,selected=0,locked=false;
+const $=id=>document.getElementById(id);
+
+function renderVisual(t){
+  const v=$("visual"); v.innerHTML="";
+  if(t.kind==="pizza"){
+    const p=document.createElement("div"); p.className="pizza";
+    for(let i=0;i<t.d;i++){
+      const s=document.createElement("div"); s.className="slice";
+      s.style.setProperty("--angle",(i*360/t.d)+"deg");
+      const dot=document.createElement("div"); dot.className="dot"; s.appendChild(dot);
+      s.addEventListener("click",()=>togglePiece(s,t));
+      p.appendChild(s);
+    }
+    const c=document.createElement("div"); c.className="center"; p.appendChild(c); v.appendChild(p);
+    v.insertAdjacentHTML("beforeend",'<div class="fraction-display" id="selectedFraction">0/'+t.d+'</div><div class="hint">Нажимай на кусочки. Выбери '+t.n+'.</div>');
+  }else if(t.kind==="line"){
+    const bar=document.createElement("div"); bar.className="line";
+    for(let i=0;i<t.d;i++){
+      const b=document.createElement("div"); b.className="part"; b.textContent=i+1;
+      b.addEventListener("click",()=>togglePiece(b,t));
+      bar.appendChild(b);
+    }
+    v.appendChild(bar);
+    v.insertAdjacentHTML("beforeend",'<div class="fraction-display" id="selectedFraction">0/'+t.d+'</div><div class="hint">Нажимай на части, чтобы составить дробь.</div>');
+  }else{
+    v.innerHTML='<div style="font-size:78px">'+t.emoji+'</div><div class="hint">Подумай: сколько составляет указанная доля от целого?</div>';
+  }
+}
+function togglePiece(el,t){
+  if(locked)return;
+  if(el.classList.contains("selected")){el.classList.remove("selected");selected--}
+  else {if(selected>=t.n)return;el.classList.add("selected");selected++}
+  $("selectedFraction").textContent=selected+"/"+t.d;
+  if(selected===t.n){
+    setTimeout(()=>check(t,selected+"/"+t.d),250);
+  }
+}
+function render(){
+  const t=tasks[index]; selected=0;locked=false;
+  $("type").textContent=t.type; $("title").textContent=t.title; $("question").textContent=t.q;
+  $("feedback").textContent=""; $("next").classList.remove("show");
+  $("score").textContent="Счёт: "+correct+" / "+answered;
+  $("progress").style.width=((index)/tasks.length*100)+"%";
+  renderVisual(t);
+  const a=$("answers");a.innerHTML="";
+  t.opts.forEach(o=>{
+    const b=document.createElement("button");b.className="answer";b.textContent=o;
+    b.addEventListener("click",()=>check(t,o));a.appendChild(b);
+  });
+}
+function check(t,value){
+  if(locked)return;
+  if(t.kind==="pizza"||t.kind==="line"){
+    if(value!==(t.n+"/"+t.d))return;
+  }
+  locked=true; answered++;
+  const right=t.correct||(t.n+"/"+t.d);
+  const ok=value===right;
+  if(ok)correct++;
+  Array.from($("answers").children).forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===right)b.classList.add("correct");
+    else if(b.textContent===value&&!ok)b.classList.add("wrong");
+  });
+  $("feedback").textContent=ok?"✓ Верно! "+(t.explain||""):("✗ Правильный ответ: "+right+(t.explain?" — "+t.explain:""));
+  $("score").textContent="Счёт: "+correct+" / "+answered;
+  $("next").classList.add("show");
+}
+$("next").addEventListener("click",()=>{
+  index++;
+  if(index>=tasks.length){
+    $("progress").style.width="100%";
+    $("feedback").textContent="🎉 Тренажёр закончен! Результат: "+correct+" из "+answered+".";
+    $("next").classList.remove("show");
+    return;
+  }
+  render();
+});
+$("restart").addEventListener("click",()=>{index=0;correct=0;answered=0;render()});
+render();
+</script>
+</body>
+</html>
