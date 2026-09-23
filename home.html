@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Мои математические тренажёры</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #fdf2f8);
+            color: #222;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .class {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .class h2 {
+            margin-top: 0;
+            font-size: 26px;
+        }
+
+        .trainers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .trainer {
+            display: block;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8fafc;
+            text-decoration: none;
+            color: #222;
+            transition: 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .trainer:hover {
+            transform: translateY(-3px);
+            border-color: #6366f1;
+            background: #eef2ff;
+        }
+
+        .trainer-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .trainer-description {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .soon {
+            opacity: 0.5;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎓 Мои математические тренажёры</h1>
+
+    <div class="subtitle">
+        Интерактивные задания по математике
+    </div>
+
+
+    <div class="class">
+
+        <h2>📘 5 класс</h2>
+
+        <div class="trainers">
+
+            <div class="trainer soon">
+                <div class="trainer-title">
+                    🔢 Натуральные числа
+                </div>
+                <div class="trainer-description">
+                    Скоро появится
+                </div>
+            </div>
+
+            <div class="trainer soon">
+                <div class="trainer-title">
+                    🔤 Буквенные выражения
+                </div>
+                <div class="trainer-description">
+                    Скоро появится
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="class">
+
+        <h2>📗 6 класс</h2>
+
+        <div class="trainers">
+
+            <a class="trainer" href="6-class/fractions.html">
+
+                <div class="trainer-title">
+                    🍕 Доли и дроби
+                </div>
+
+                <div class="trainer-description">
+                    Интерактивный тренажёр
+                </div>
+
+            </a>
+
+            <div class="trainer soon">
+
+                <div class="trainer-title">
+                    ➗ Делимость чисел
+                </div>
+
+                <div class="trainer-description">
+                    Скоро появится
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="class">
+
+        <h2>📕 7 класс</h2>
+
+        <div class="trainers">
+
+            <div class="trainer soon">
+
+                <div class="trainer-title">
+                    ✏️ Уравнения
+                </div>
+
+                <div class="trainer-description">
+                    Скоро появится
+                </div>
+
+            </div>
+
+            <div class="trainer soon">
+
+                <div class="trainer-title">
+                    🔤 Буквенные выражения
+                </div>
+
+                <div class="trainer-description">
+                    Скоро появится
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        Математика → практика → результат 🚀
+    </footer>
+
+</div>
+
+</body>
+</html>
