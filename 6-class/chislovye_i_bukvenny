@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Числовые и буквенные выражения — 5 класс</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#eef6ff,#fff7ed 45%,#f5f3ff);color:#20243a}
+.container{max-width:1050px;margin:auto;padding:28px 18px 60px}
+.hero{background:linear-gradient(135deg,#6c63ff,#8b5cf6 48%,#ec4899);color:#fff;border-radius:28px;padding:34px;box-shadow:0 16px 40px #5b4fd633;position:relative;overflow:hidden}
+.hero:after{content:"✦  +  x  =  ?";position:absolute;right:25px;bottom:15px;font-size:46px;opacity:.16;font-weight:800}
+.hero h1{font-size:clamp(30px,6vw,52px);margin:0 0 10px}
+.hero p{font-size:18px;max-width:720px;line-height:1.55;margin:0}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{background:#ffffff22;border:1px solid #ffffff44;padding:8px 12px;border-radius:999px}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.nav button{border:0;background:#fff;padding:11px 15px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px #26335a12}
+.section{background:#fff;border-radius:22px;padding:25px;margin:18px 0;box-shadow:0 8px 28px #26335a10;border:1px solid #e7eaf3}
+.section h2{margin:0 0 15px;font-size:27px}.section h3{margin-top:20px}
+.note{background:#f5f3ff;border-left:5px solid #7c3aed;padding:15px;border-radius:12px;line-height:1.6}
+.formula{font-size:27px;text-align:center;background:#f8fafc;border-radius:16px;padding:17px;margin:14px 0;font-weight:700}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.mini{background:#f8fafc;padding:16px;border-radius:16px;border:1px solid #e5e7eb;line-height:1.6}
+.step{display:flex;gap:12px;align-items:flex-start;margin:10px 0}.num{background:#7c3aed;color:#fff;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-weight:800;flex:none}
+.tasks{background:linear-gradient(135deg,#fff7ed,#fdf2f8);border:2px solid #fb923c}
+.task{background:#fff;border:2px solid #ececf4;border-radius:18px;padding:18px;margin:14px 0}
+.task-title{font-weight:800;font-size:18px;margin-bottom:8px}
+.options{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+button.opt,.action{border:2px solid #dfe3ef;background:#fff;padding:11px 15px;border-radius:12px;cursor:pointer;font-size:16px;font-weight:650;transition:.15s}
+button.opt:hover,.action:hover{transform:translateY(-1px);border-color:#8b5cf6}
+.correct{background:#dcfce7!important;border-color:#22c55e!important;color:#166534}
+.wrong{background:#fee2e2!important;border-color:#ef4444!important;color:#991b1b}
+.feedback{font-weight:700;min-height:25px;margin-top:10px}
+input{font-size:18px;padding:11px;border:2px solid #dfe3ef;border-radius:11px;width:150px}
+.action{background:#6d5dfc;color:white;border-color:#6d5dfc}
+.hint{display:none;background:#fffbeb;border:1px solid #fbbf24;padding:12px;border-radius:12px;margin-top:10px}
+.scorebox{background:linear-gradient(135deg,#312e81,#7c3aed);color:#fff;text-align:center;border-radius:22px;padding:24px;margin-top:20px}
+.score{font-size:42px;font-weight:900}
+.progress{height:12px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin:15px 0}.progress i{display:block;height:100%;width:0;background:#22c55e;transition:.3s}
+.small{color:#697386;font-size:14px}
+@media(max-width:600px){.container{padding:15px 10px 40px}.hero{padding:25px 20px}.section{padding:18px}.formula{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="container">
+<section class="hero">
+<div style="font-weight:800;opacity:.9">МАТЕМАТИКА • 5 КЛАСС</div>
+<h1>Числовые и буквенные выражения</h1>
+<p>Научимся отличать числовые выражения от буквенных, подставлять значения букв и использовать выражения для решения задач.</p>
+<div class="badges"><span class="badge">📚 Теория</span><span class="badge">🎯 Практика</span><span class="badge">⭐ Итоговый тест</span></div>
+</section>
+
+<div class="nav">
+<button onclick="document.getElementById('theory').scrollIntoView({behavior:'smooth'})">📖 Теория</button>
+<button onclick="document.getElementById('tasks').scrollIntoView({behavior:'smooth'})">🎮 Задания</button>
+<button onclick="document.getElementById('final').scrollIntoView({behavior:'smooth'})">🏆 Тест</button>
+</div>
+
+<section class="section" id="theory">
+<h2>1. Числовое выражение 🔢</h2>
+<p><b>Числовое выражение</b> — это выражение, в котором присутствуют только числа и знаки математических действий.</p>
+<div class="formula">30 + (30 − 3) = 57</div>
+<div class="cols">
+<div class="mini"><b>Примеры</b><br>45 + 18<br>100 − 27<br>7 · 8<br>72 : 9</div>
+<div class="mini"><b>Главное правило</b><br>Нет букв → выражение числовое. Его можно вычислить и получить конкретное число.</div>
+</div>
+
+<h3>Пример из задачи 🚲</h3>
+<p>В первый день велосипедист проехал 30 км, а во второй — на 3 км меньше.</p>
+<div class="step"><span class="num">1</span><div>Во второй день: <b>30 − 3 = 27</b> км.</div></div>
+<div class="step"><span class="num">2</span><div>За два дня: <b>30 + 27 = 57</b> км.</div></div>
+<div class="formula">30 + (30 − 3) = 57</div>
+</section>
+
+<section class="section">
+<h2>2. Буквенное выражение 🔤</h2>
+<p>Если в числовом выражении заменить хотя бы одно число буквой, получится <b>буквенное выражение</b>.</p>
+<div class="formula">y + (y − 3)</div>
+<div class="note">💡 <b>Запомни:</b> если в выражении есть хотя бы одна буква, выражение является буквенным — даже если рядом есть числа.</div>
+
+<div class="cols" style="margin-top:14px">
+<div class="mini"><b>Числовые</b><br>70 + 30<br>90 − 15<br>8 · 6</div>
+<div class="mini"><b>Буквенные</b><br>70 + x<br>90 − k<br>8 · a + 5</div>
+</div>
+
+<h3>Что означает буква?</h3>
+<p>Буква может обозначать число, которое меняется. Например, если <b>y = 30</b>, то выражение</p>
+<div class="formula">y + (y − 3)</div>
+<p>превращается в числовое:</p>
+<div class="formula">30 + (30 − 3) = 57</div>
+<p>Число <b>30</b> в этом случае называется <b>значением буквы y</b>.</p>
+</section>
+
+<section class="section">
+<h2>3. Как вычислить буквенное выражение? 🧩</h2>
+<p>Действуем по алгоритму:</p>
+<div class="cols">
+<div class="mini"><b>Шаг 1</b><br>Запиши значение буквы.</div>
+<div class="mini"><b>Шаг 2</b><br>Подставь его вместо буквы.</div>
+<div class="mini"><b>Шаг 3</b><br>Вычисли получившееся числовое выражение.</div>
+</div>
+<div class="formula">3 · a + 5, если a = 7</div>
+<div class="step"><span class="num">1</span><div>Подставляем: <b>3 · 7 + 5</b></div></div>
+<div class="step"><span class="num">2</span><div>Умножаем: <b>21 + 5</b></div></div>
+<div class="step"><span class="num">3</span><div>Получаем: <b>26</b></div></div>
+</section>
+
+<section class="section">
+<h2>4. Буквенные выражения в задачах 📐</h2>
+<p>Они особенно полезны, когда величины могут изменяться.</p>
+<div class="formula">P = 2 · (a + b)</div>
+<p>Это формула периметра прямоугольника.</p>
+<div class="cols">
+<div class="mini"><b>Если a = 3 см, b = 4 см</b><br>P = 2 · (3 + 4)<br>P = 2 · 7<br><b>P = 14 см</b></div>
+<div class="mini"><b>Почему удобно?</b><br>Размеры могут меняться, а формула остаётся той же. Нужно только подставить новые значения.</div>
+</div>
+</section>
+
+<section class="section tasks" id="tasks">
+<h2>🎮 БОЛЬШОЙ БЛОК ЗАДАНИЙ</h2>
+<p>Здесь можно потренироваться после изучения теории. За правильные ответы начисляются ⭐.</p>
+<div class="progress"><i id="taskProgress"></i></div>
+<div id="taskScore" class="small">Выполнено: 0</div>
+
+<div class="task">
+<div class="task-title">Задание 1. Числовое или буквенное?</div>
+<p>Какое выражение является <b>числовым</b>?</p>
+<div class="options">
+<button class="opt" onclick="choice(this,true,'fb1')">25 + 17</button>
+<button class="opt" onclick="choice(this,false,'fb1')">80 − x</button>
+<button class="opt" onclick="choice(this,false,'fb1')">a + 12</button>
+</div><div id="fb1" class="feedback"></div>
+</div>
+
+<div class="task">
+<div class="task-title">Задание 2. Найди буквенное выражение</div>
+<p>Какое выражение является <b>буквенным</b>?</p>
+<div class="options">
+<button class="opt" onclick="choice(this,false,'fb2')">40 − 18</button>
+<button class="opt" onclick="choice(this,true,'fb2')">40 − k</button>
+<button class="opt" onclick="choice(this,false,'fb2')">6 · 7</button>
+</div><div id="fb2" class="feedback"></div>
+</div>
+
+<div class="task">
+<div class="task-title">Задание 3. Подставь значение</div>
+<p>Вычисли: <b>2 · a + 7</b>, если <b>a = 6</b>.</p>
+<input id="in3" type="number" placeholder="?"> <button class="action" onclick="inputTask('in3',19,'fb3')">Проверить</button>
+<div id="fb3" class="feedback"></div>
+<button class="opt" onclick="showHint('hint3')">💡 Подсказка</button>
+<div id="hint3" class="hint">Сначала замени a на 6: 2 · 6 + 7.</div>
+</div>
+
+<div class="task">
+<div class="task-title">Задание 4. Ещё одна подстановка</div>
+<p>Вычисли: <b>b − 8</b>, если <b>b = 25</b>.</p>
+<input id="in4" type="number" placeholder="?"> <button class="action" onclick="inputTask('in4',17,'fb4')">Проверить</button>
+<div id="fb4" class="feedback"></div>
+</div>
+
+<div class="task">
+<div class="task-title">Задание 5. Задача с буквенным выражением</div>
+<p>В первый день рабочий сделал 23 детали, во второй — на 3 детали меньше. Сколько деталей он сделал за два дня?</p>
+<div class="options">
+<button class="opt" onclick="choice(this,true,'fb5')">43</button>
+<button class="opt" onclick="choice(this,false,'fb5')">33</button>
+<button class="opt" onclick="choice(this,false,'fb5')">20</button>
+</div><div id="fb5" class="feedback"></div>
+</div>
+
+<div class="task">
+<div class="task-title">Задание 6. Периметр 📐</div>
+<p>Длина прямоугольника 5 см, ширина 7 см. Найди периметр.</p>
+<div class="options">
+<button class="opt" onclick="choice(this,true,'fb6')">24 см</button>
+<button class="opt" onclick="choice(this,false,'fb6')">12 см</button>
+<button class="opt" onclick="choice(this,false,'fb6')">35 см</button>
+</div><div id="fb6" class="feedback"></div>
+</div>
+
+<div class="task">
+<div class="task-title">Задание 7. Составь выражение 🧠</div>
+<p>Автобус ехал 10 минут, а затем ещё <b>на n минут меньше</b>. Как записать всё время движения?</p>
+<div class="options">
+<button class="opt" onclick="choice(this,true,'fb7')">10 + (10 − n)</button>
+<button class="opt" onclick="choice(this,false,'fb7')">10 + (10 + n)</button>
+<button class="opt" onclick="choice(this,false,'fb7')">10 − n</button>
+</div><div id="fb7" class="feedback"></div>
+</div>
+</section>
+
+<section class="section" id="final">
+<h2>🏆 Итоговый мини-тест</h2>
+<p>5 вопросов без подсказок. Постарайся решить самостоятельно.</p>
+<div id="quiz"></div>
+<div id="quizResult" class="scorebox" style="display:none">
+<div>Твой результат</div><div class="score" id="score"></div>
+<div id="resultText"></div>
+<button class="action" style="margin-top:15px" onclick="restartQuiz()">🔄 Пройти ещё раз</button>
+</div>
+</section>
+
+<section class="section">
+<h2>🧠 Что нужно запомнить?</h2>
+<div class="cols">
+<div class="mini">🔢 <b>Только числа</b> → числовое выражение.</div>
+<div class="mini">🔤 <b>Есть хотя бы одна буква</b> → буквенное выражение.</div>
+<div class="mini">🎯 Чтобы вычислить буквенное выражение, <b>подставь значение буквы</b>.</div>
+<div class="mini">📐 Буквенные выражения позволяют записывать <b>формулы и задачи в общем виде</b>.</div>
+</div>
+</section>
+</div>
+
+<script>
+let solved=new Set();
+function mark(id){
+  solved.add(id);
+  let p=Math.min(100,Math.round(solved.size/7*100));
+  document.getElementById('taskProgress').style.width=p+'%';
+  document.getElementById('taskScore').textContent='Выполнено: '+solved.size+' из 7 ⭐';
+}
+function choice(btn,ok,fb){
+  const parent=btn.parentElement;
+  parent.querySelectorAll('button').forEach(b=>b.classList.remove('correct','wrong'));
+  btn.classList.add(ok?'correct':'wrong');
+  document.getElementById(fb).innerHTML=ok?'✅ Верно! Отличная работа!':'❌ Не совсем. Попробуй ещё раз.';
+  if(ok) mark(fb);
+}
+function inputTask(id,answer,fb){
+  const v=Number(document.getElementById(id).value);
+  const el=document.getElementById(fb);
+  if(v===answer){el.innerHTML='✅ Верно!';el.className='feedback';mark(fb)}
+  else {el.innerHTML='❌ Проверь подстановку и порядок действий.';el.className='feedback'}
+}
+function showHint(id){document.getElementById(id).style.display='block'}
+
+const questions=[
+['Какое выражение буквенное?',['70 + 30','90 − k','8 · 6'],1],
+['Если x = 8, чему равно x + 17?',['23','25','27'],1],
+['Если a = 6, чему равно 4 · a?',['10','24','46'],1],
+['Как записать: число n увеличили на 9?',['n − 9','9 − n','n + 9'],2],
+['Периметр прямоугольника со сторонами 6 см и 3 см равен:',['18 см','9 см','12 см'],0]
+];
+let qi=0,qscore=0;
+function renderQuiz(){
+ const box=document.getElementById('quiz'); box.innerHTML='';
+ if(qi>=questions.length){document.getElementById('quizResult').style.display='block';document.getElementById('score').textContent=qscore+' / '+questions.length;let t=qscore===5?'🌟 Идеально!':qscore>=3?'👍 Хорошо! Ещё немного практики — и будет отлично!':'📚 Повтори теорию и попробуй снова.';document.getElementById('resultText').textContent=t;return;}
+ const q=questions[qi];
+ const d=document.createElement('div');d.className='task';
+ d.innerHTML='<div class="small">Вопрос '+(qi+1)+' из '+questions.length+'</div><div class="task-title">'+q[0]+'</div><div class="options"></div><div class="feedback"></div>';
+ const opts=d.querySelector('.options');
+ q[1].forEach((text,i)=>{
+   const b=document.createElement('button');b.className='opt';b.textContent=text;
+   b.onclick=()=>{
+     opts.querySelectorAll('button').forEach(x=>x.disabled=true);
+     const ok=i===q[2];b.classList.add(ok?'correct':'wrong');
+     d.querySelector('.feedback').innerHTML=ok?'✅ Верно!':'❌ Неверно.';
+     if(ok)qscore++;
+     const next=document.createElement('button');next.className='action';next.textContent=qi===questions.length-1?'🏆 Результат':'Следующий вопрос →';next.style.marginTop='12px';next.onclick=()=>{qi++;renderQuiz()};d.appendChild(next);
+   };
+   opts.appendChild(b);
+ });
+ box.appendChild(d);
+}
+function restartQuiz(){qi=0;qscore=0;document.getElementById('quizResult').style.display='none';renderQuiz()}
+renderQuiz();
+</script>
+</body>
+</html>
